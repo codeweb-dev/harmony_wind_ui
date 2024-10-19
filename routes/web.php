@@ -1,15 +1,18 @@
 <?php
 
+use App\Livewire\Admin\Dashboard;
+use App\Livewire\User\Profile;
+use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome');
+Route::get('/', Welcome::class)->name('welcome');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::group(['middleware' => ['role:user|admin']], function () {
+    Route::get('/profile', Profile::class)->name('user.profile');
+});
 
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
+Route::group(['middleware' => ['role:admin']], function () {
+    Route::get('/admin-dashboard', Dashboard::class)->name('admin.dashboard');
+});
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
