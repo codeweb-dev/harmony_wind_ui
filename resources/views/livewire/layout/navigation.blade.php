@@ -7,6 +7,8 @@ new class extends Component {
     /**
      * Log the current user out of the application.
      */
+    public bool $nav_bar = false;
+
     public function logout(Logout $logout): void
     {
         $logout();
@@ -15,28 +17,42 @@ new class extends Component {
     }
 }; ?>
 
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }" class="bg-custom-background text-primary-white">
+    <x-mary-drawer wire:model="nav_bar" class="w-9/12">
+        <div>...</div>
+        <x-mary-button label="Close" @click="$wire.nav_bar = false" />
+    </x-mary-drawer>
+
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
+                <div class="shrink-0 flex items-center text-sm font-bold gap-2">
+                    <x-mary-button label="=" wire:click="$toggle('nav_bar')" class="md:hidden btn-ghost" />
                     <a href="{{ route('welcome') }}" wire:navigate>
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        Harmony Wind UI
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
 
-                    <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')" wire:navigate>
+                    <x-nav-link :href="auth()->check() ? route('login') : route('login')" :active="request()->routeIs('login')" wire:navigate>
+                        {{ __('Docs') }}
+                    </x-nav-link>
+
+                    {{-- <x-nav-link :href="auth()->check() ? route('login') : route('login')" :active="request()->routeIs('##')" wire:navigate>
                         {{ __('Components') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')" wire:navigate>
-                        {{ __('Templates') }}
+                    <x-nav-link :href="auth()->check() ? route('user.profile') : route('login')" :active="request()->routeIs('###')" wire:navigate>
+                        {{ __('Examples') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="auth()->check() ? route('####') : route('login')" :active="request()->routeIs('####')" wire:navigate>
+                        {{ __('Templates') }}
+                    </x-nav-link> --}}
 
                     @role('admin')
                         <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')" wire:navigate>
@@ -85,20 +101,12 @@ new class extends Component {
                         </div>
                     @endif
                 @else
-                    <div class="mt-5">
-                        <a href="{{ route('login') }}"
-                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                            wire:navigate>
-                            Log in
+                    <div class="mt-5 mr-3 lg:mr-0">
+                        <a href="{{ route('login') }}" wire:navigate>
+                            <button
+                                class="flex w-full justify-center rounded-md bg-white px-3 py-1 text-sm font-semibold leading-6 text-primary-dark shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:bg-white">Log
+                                in</button>
                         </a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}"
-                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                wire:navigate>
-                                Register
-                            </a>
-                        @endif
                     </div>
                 @endauth
             </nav>

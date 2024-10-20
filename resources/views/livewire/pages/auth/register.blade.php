@@ -38,8 +38,8 @@ new #[Layout('layouts.app')] class extends Component {
     }
 }; ?>
 
-<div>
-    <form wire:submit="register">
+<div class="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8 text-primary-white">
+    {{-- <form wire:submit="register">
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
@@ -86,5 +86,64 @@ new #[Layout('layouts.app')] class extends Component {
                 {{ __('Register') }}
             </x-primary-button>
         </div>
-    </form>
+    </form> --}}
+
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h1 class="text-center font-bold text-2xl"><a href="{{ route('welcome') }}" wire:navigate>Welcome to Harmony Wind
+                UI</a></h1>
+    </div>
+
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form wire:submit="register">
+            <!-- Name -->
+            <div>
+                <label for="name" class="block text-sm font-medium leading-6">Name</label>
+                <div class="mt-1">
+                    <x-mary-input wire:model="name" id="name" type="text" placeholder="Your Name"
+                        class="block w-full rounded-md bg-transparent border-0 py-1.5 ring-1 ring-inset ring-border-color placeholder:text-muted-color focus:ring-2 focus:ring-inset focus:ring-white sm:leading-6" />
+                </div>
+            </div>
+
+            <!-- Email Address -->
+            <div class="mt-4">
+                <label for="email" class="block text-sm font-medium leading-6">Email address</label>
+                <div class="mt-1">
+                    <x-mary-input wire:model="email" id="email" type="email" placeholder="email@example.com"
+                        class="block w-full rounded-md bg-transparent border-0 py-1.5 ring-1 ring-inset ring-border-color placeholder:text-muted-color focus:ring-2 focus:ring-inset focus:ring-white sm:leading-6" />
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div class="mt-4">
+                <label for="password" class="block text-sm font-medium leading-6">Password</label>
+                <div class="mt-1">
+                    <x-mary-password wire:model="password" right id="password" placeholder="Password"
+                        class="block w-full rounded-md bg-transparent border-0 py-1.5 ring-1 ring-inset ring-border-color placeholder:text-muted-color focus:ring-2 focus:ring-inset focus:ring-white sm:leading-6" />
+                </div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="mt-4">
+                <label for="password_confirmation" class="block text-sm font-medium leading-6">Confirm Password</label>
+                <div class="mt-1">
+                    <x-mary-password wire:model="password_confirmation" right id="password_confirmation"
+                        placeholder="Confirm Password"
+                        class="block w-full rounded-md bg-transparent border-0 py-1.5 ring-1 ring-inset ring-border-color placeholder:text-muted-color focus:ring-2 focus:ring-inset focus:ring-white sm:leading-6" />
+                </div>
+            </div>
+
+            <!-- Register Button -->
+            <div class="mt-6">
+                <x-mary-button label="Register" type="submit"
+                    class="flex w-full justify-center rounded-md bg-white px-3 text-sm font-semibold leading-6 text-primary-dark shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:bg-white" />
+            </div>
+
+            <!-- Already Registered Link -->
+            <p class="mt-10 text-center text-sm text-primary-white">
+                Already registered?
+                <a href="{{ route('login') }}" class="font-semibold leading-6 text-muted-color" wire:navigate>Log in</a>
+            </p>
+        </form>
+    </div>
+
 </div>
