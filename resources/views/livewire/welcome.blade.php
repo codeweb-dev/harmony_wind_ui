@@ -1,3 +1,5 @@
-<div class="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8 text-primary-white">
-    customize it
+<div class="bg-custom-background text-primary-white">
+    <livewire:partials.welcome-hero-section />
+    {{-- <livewire:partials.welcome-components-section /> --}}
+    <livewire:partials.welcome-footer-section />
 </div>

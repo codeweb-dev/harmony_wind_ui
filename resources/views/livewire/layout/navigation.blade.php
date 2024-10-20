@@ -16,151 +16,77 @@ new class extends Component {
         $this->redirect('/', navigate: true);
     }
 }; ?>
-
-<nav x-data="{ open: false }" class="bg-custom-background text-primary-white">
-    <x-mary-drawer wire:model="nav_bar" class="w-9/12">
-        <div>...</div>
-        <x-mary-button label="Close" @click="$wire.nav_bar = false" />
-    </x-mary-drawer>
-
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center text-sm font-bold gap-2">
-                    <x-mary-button label="=" wire:click="$toggle('nav_bar')" class="md:hidden btn-ghost" />
-                    <a href="{{ route('welcome') }}" wire:navigate>
-                        Harmony Wind UI
-                    </a>
-                </div>
-
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-
-                    <x-nav-link :href="auth()->check() ? route('login') : route('login')" :active="request()->routeIs('login')" wire:navigate>
-                        {{ __('Docs') }}
-                    </x-nav-link>
-
-                    {{-- <x-nav-link :href="auth()->check() ? route('login') : route('login')" :active="request()->routeIs('##')" wire:navigate>
-                        {{ __('Components') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="auth()->check() ? route('user.profile') : route('login')" :active="request()->routeIs('###')" wire:navigate>
-                        {{ __('Examples') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="auth()->check() ? route('####') : route('login')" :active="request()->routeIs('####')" wire:navigate>
-                        {{ __('Templates') }}
-                    </x-nav-link> --}}
-
-                    @role('admin')
-                        <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')" wire:navigate>
-                            {{ __('Admin dashboard') }}
-                        </x-nav-link>
-                    @endrole
-                </div>
+<nav x-data="{ open: false }" class="bg-custom-background text-primary-white fixed top-0 w-full z-50">
+    <div class="w-full flex items-center justify-between">
+        <x-mary-drawer wire:model="nav_bar" class="w-9/12 bg-custom-background text-primary-white">
+            <div class="flex items-center justify-between w-full">
+                <a href="{{ route('welcome') }}" wire:navigate>
+                    <x-bi-wind class="w-5 h-5 font-black inline-flex mr-2" /> Harmony Wind UI
+                </a>
+                <x-mary-button icon="c-x-mark" @click="$wire.nav_bar = false" class="btn-ghost" />
             </div>
+        </x-mary-drawer>
 
-            <nav class="-mx-3 flex flex-1 justify-end">
-                @auth
-                    @if (auth()->check())
-                        <div class="hidden sm:flex sm:items-center sm:ms-6">
-                            <x-dropdown align="right" width="48">
-                                <x-slot name="trigger">
-                                    <button
-                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-
-                                        <div x-data="{ name: '{{ auth()->user()->name }}' }" x-text="name"
-                                            x-on:profile-updated.window="name = $event.detail.name"></div>
-
-                                        <div class="ms-1">
-                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </div>
-                                    </button>
-                                </x-slot>
-
-                                <x-slot name="content">
-                                    <x-dropdown-link :href="route('user.profile')" wire:navigate>
-                                        {{ __('Profile') }}
-                                    </x-dropdown-link>
-
-                                    <!-- Authentication -->
-                                    <button wire:click="logout" class="w-full text-start">
-                                        <x-dropdown-link>
-                                            {{ __('Log Out') }}
-                                        </x-dropdown-link>
-                                    </button>
-                                </x-slot>
-                            </x-dropdown>
-                        </div>
-                    @endif
-                @else
-                    <div class="mt-5 mr-3 lg:mr-0">
-                        <a href="{{ route('login') }}" wire:navigate>
-                            <button
-                                class="flex w-full justify-center rounded-md bg-white px-3 py-1 text-sm font-semibold leading-6 text-primary-dark shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:bg-white">Log
-                                in</button>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <div class="shrink-0 flex items-center text-sm font-bold gap-2">
+                        <x-mary-button icon="o-bars-3-bottom-left" wire:click="$toggle('nav_bar')"
+                            class="text-2xl md:hidden btn-ghost" />
+                        <a href="{{ route('welcome') }}" wire:navigate class="hidden md:block">
+                            <x-bi-wind class="w-5 h-5 font-black inline-flex mr-2" /> Harmony Wind UI
                         </a>
                     </div>
-                @endauth
-            </nav>
 
-            @if (auth()->check())
-                <!-- Hamburger -->
-                <div class="-me-2 flex items-center sm:hidden">
-                    <button @click="open = ! open"
-                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
-                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                            <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
-                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16" />
-                            <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden"
-                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
+                    <div class="hidden space-x-8 sm:flex sm:ml-10">
+                        <x-nav-link :href="route('login')" :active="request()->routeIs('login')" wire:navigate>
+                            {{ __('Components') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('login')" :active="request()->routeIs('login')" wire:navigate>
+                            {{ __('Templates') }}
+                        </x-nav-link>
+                        @role('admin')
+                            <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')" wire:navigate>
+                                {{ __('Admin dashboard') }}
+                            </x-nav-link>
+                        @endrole
+                    </div>
                 </div>
-            @endif
-        </div>
-    </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            @role('admin')
-                <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')" wire:navigate>
-                    {{ __('Admin dashboard') }}
-                </x-nav-link>
-            @endrole
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-            <div class="px-4">
-                @if (auth()->check())
-                    <div class="font-medium text-base text-gray-800 dark:text-gray-200" x-data="{{ json_encode(['name' => auth()->user()->name]) }}"
-                        x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
-                    <div class="font-medium text-sm text-gray-500">{{ auth()->user()->email }}</div>
-                @endif
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('user.profile')" wire:navigate>
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <button wire:click="logout" class="w-full text-start">
-                    <x-responsive-nav-link>
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </button>
+                <div class="flex items-center justify-end">
+                    @auth
+                        <x-dropdown align="right" width="48">
+                            <x-slot name="trigger">
+                                <button class="inline-flex items-center px-3 py-2">
+                                    <div x-text="'{{ auth()->user()->name }}'"></div>
+                                    <div class="ml-1">
+                                        <svg class="fill-current h-4 w-4" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </button>
+                            </x-slot>
+                            <x-slot name="content">
+                                <x-dropdown-link :href="route('user.profile')" wire:navigate>
+                                    {{ __('Profile') }}
+                                </x-dropdown-link>
+                                <button wire:click="logout" class="w-full text-start">
+                                    <x-dropdown-link>{{ __('Log Out') }}</x-dropdown-link>
+                                </button>
+                            </x-slot>
+                        </x-dropdown>
+                    @else
+                        <div>
+                            <a href="{{ route('login') }}" wire:navigate>
+                                <button
+                                    class="flex w-full justify-center rounded-md bg-white px-3 py-1 text-sm font-semibold leading-6 text-primary-dark shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:bg-white">Log
+                                    in</button>
+                            </a>
+                        </div>
+                    @endauth
+                </div>
             </div>
         </div>
     </div>

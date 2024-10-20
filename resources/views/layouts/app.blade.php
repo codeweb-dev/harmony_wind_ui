@@ -29,7 +29,6 @@
         {{ $slot }}
     </main>
 
-    {{--  TOAST area --}}
     <x-mary-toast />
 </body>
 

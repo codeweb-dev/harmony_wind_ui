@@ -68,7 +68,8 @@ new #[Layout('layouts.app')] class extends Component {
         </div>
     </form> --}}
 
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm flex items-center justify-center gap-1">
+        <x-bi-wind class="w-10 h-10 font-black mr-2" />
         <h1 class="text-center font-bold text-2xl"><a href="{{ route('welcome') }}" wire:navigate>Harmony Wind UI</a></h1>
     </div>
 

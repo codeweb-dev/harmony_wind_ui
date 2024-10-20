@@ -40,7 +40,8 @@ new #[Layout('layouts.app')] class extends Component {
         {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
     </div> --}}
 
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm mb-10">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm flex items-center justify-center gap-1 mb-10">
+        <x-bi-wind class="w-10 h-10 font-black mr-2" />
         <h1 class="text-center font-bold text-2xl"><a href="{{ route('welcome') }}" wire:navigate>Harmony Wind UI</a></h1>
     </div>
 
