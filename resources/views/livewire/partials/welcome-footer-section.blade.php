@@ -2,5 +2,7 @@
     <p>Built by <span class="bg-gradient-to-b from-emerald-500 to-emerald-900 bg-clip-text text-transparent">
             Allen
         </span>❤️</p>
-    <p>Inspired by Shadcn</p>
+    <p>Inspired by <span class="bg-gradient-to-b from-emerald-500 to-emerald-900 bg-clip-text text-transparent">
+            Shadcn
+        </span></p>
 </div>

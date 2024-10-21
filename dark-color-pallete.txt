@@ -5,3 +5,5 @@
 
 Continue in the hamburger in the welcome page
 put an icon
+
+use highlight.js for code snippet

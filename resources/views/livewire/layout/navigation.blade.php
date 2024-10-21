@@ -25,6 +25,20 @@ new class extends Component {
                 </a>
                 <x-mary-button icon="c-x-mark" @click="$wire.nav_bar = false" class="btn-ghost" />
             </div>
+            <div class="flex flex-col gap-3 mt-5">
+                {{-- <x-nav-link :href="route('user.components')" wire:navigate>
+                    {{ __('Components') }}
+                </x-nav-link> --}}
+
+                <x-nav-link :href="route('login')" wire:navigate>
+                    {{ __('Templates') }}
+                </x-nav-link>
+                @role('admin')
+                    <x-nav-link :href="route('admin.dashboard')" wire:navigate>
+                        {{ __('Admin dashboard') }}
+                    </x-nav-link>
+                @endrole
+            </div>
         </x-mary-drawer>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -39,14 +53,14 @@ new class extends Component {
                     </div>
 
                     <div class="hidden space-x-8 sm:flex sm:ml-10">
-                        <x-nav-link :href="route('login')" :active="request()->routeIs('login')" wire:navigate>
+                        <x-nav-link :href="route('user.components', 1)" :active="request()->routeIs('user.components', 1)" wire:navigate>
                             {{ __('Components') }}
                         </x-nav-link>
                         <x-nav-link :href="route('login')" :active="request()->routeIs('login')" wire:navigate>
                             {{ __('Templates') }}
                         </x-nav-link>
                         @role('admin')
-                            <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')" wire:navigate>
+                            <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard') || request()->routeIs('admin.components')" wire:navigate>
                                 {{ __('Admin dashboard') }}
                             </x-nav-link>
                         @endrole
