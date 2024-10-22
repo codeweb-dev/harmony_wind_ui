@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.blog-h3 h3 {
+    font-size: 1.3rem;
+    margin: 1rem 0;
+}
+
+.blog-h3 h4 {
+    margin-top: 0.5rem;
+}
+
+.blog-h3 hr {
+    margin: 2rem 0;
+    color: #28282b;
+    border-color: #28282b;
+}
+
+.blog-h3 ul {
+    list-style-type: disc;
+    list-style-position: inside;
+    margin-left: 2rem;
+}
+
+.blog-h3 ul li {
+    color: #868686;
+    margin-top: 0.5rem;
+}

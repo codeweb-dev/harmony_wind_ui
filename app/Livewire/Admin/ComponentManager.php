@@ -81,7 +81,6 @@ class ComponentManager extends Component
         $this->resetFields();
 
         $this->editForm = false;
-
         $this->loadComponents();
     }
 
@@ -90,7 +89,6 @@ class ComponentManager extends Component
         Components::find($id)->delete();
 
         $this->success("Succesfully deleted component");
-
         $this->loadComponents();
     }
 

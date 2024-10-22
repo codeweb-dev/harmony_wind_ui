@@ -28,9 +28,13 @@ new #[Layout('layouts.app')] class extends Component {
 
 <nav class="flex flex-col gap-2">
     @foreach ($components as $component)
-        <a href="{{ url('/components/' . $component['id']) }}" class="text-sm text-muted-color hover:underline"
-            wire:navigate>
-            {{ $component['name'] }}
-        </a>
+        <div wire:key="{{ $component['id'] }}" class="flex items-center gap-3">
+            <a href="{{ url('/components/' . $component['id']) }}"
+                class="text-sm hover:underline {{ request()->is('components/' . $component['id']) ? 'text-primary-white' : 'text-muted-color' }}"
+                wire:navigate>
+                {{ $component['name'] }}
+            </a>
+            <x-mary-badge value="New" />
+        </div>
     @endforeach
 </nav>

@@ -1,7 +1,35 @@
+<?php
+use App\Models\User;
+use Livewire\Volt\Component;
+use Livewire\Attributes\Layout;
+
+new #[Layout('layouts.app')] class extends Component {
+    public int $userCount = 0;
+
+    /**
+     * Fetch the user count on mount.
+     */
+    public function mount(): void
+    {
+        $this->userCount = User::count(); // Get the total number of users
+    }
+
+    /**
+     * Render the component view with the user count.
+     */
+    public function render(): mixed
+    {
+        return view('livewire.partials.welcome-hero-section', [
+            'userCount' => $this->userCount,
+        ]);
+    }
+};
+?>
+
 <div class="min-h-screen w-full flex flex-col items-center justify-center relative">
     <div class="flex justify-center mb-6">
         <div class="rounded-full border border-border-color px-3 py-1 text-sm text-muted-color bg-transparent">
-            Trusted by 35,000+ people</a>
+            Trusted by {{ number_format($userCount) }}+ people
         </div>
     </div>
 
@@ -22,7 +50,7 @@
             <a href="{{ route('login') }}" wire:navigate>
                 <x-mary-button label="Get Started" icon-right="o-chevron-right" class="bg-primary-white text-black" />
             </a>
-            <a href="{{ route('login') }}" wire:navigate>
+            <a href="https://www.facebook.com/allen.labrague.75" target="_blank">
                 <x-mary-button label="Facebook" class="btn-ghost" />
             </a>
         </div>

@@ -21,23 +21,38 @@ new class extends Component {
         <x-mary-drawer wire:model="nav_bar" class="w-9/12 bg-custom-background text-primary-white">
             <div class="flex items-center justify-between w-full">
                 <a href="{{ route('welcome') }}" wire:navigate>
-                    <x-bi-wind class="w-5 h-5 font-black inline-flex mr-2" /> Harmony Wind UI
+                    <x-bi-wind class="w-5 h-5 font-black inline-flex mr-2" /> Harmony Wind UI (Beta)
                 </a>
                 <x-mary-button icon="c-x-mark" @click="$wire.nav_bar = false" class="btn-ghost" />
             </div>
             <div class="flex flex-col gap-3 mt-5">
-                {{-- <x-nav-link :href="route('user.components')" wire:navigate>
+                <h2 class="font-bold">Pages</h2>
+                <x-nav-link :href="auth()->user() ? route('user.components', 1) : route('login')" :active="request()->routeIs('user.components', 1)" wire:navigate>
                     {{ __('Components') }}
+                </x-nav-link>
+
+                {{-- <x-nav-link :href="route('login')" wire:navigate>
+                    {{ __('Templates') }}
                 </x-nav-link> --}}
 
-                <x-nav-link :href="route('login')" wire:navigate>
-                    {{ __('Templates') }}
+                <x-nav-link :href="auth()->user() ? route('user.blog') : route('login')" :active="request()->routeIs('user.blog')" wire:navigate>
+                    {{ __('Blog') }}
                 </x-nav-link>
+                <x-nav-link disabled>
+                    {{ __('Templates (Coming soon 🎉)') }}
+                </x-nav-link>
+                <x-nav-link disabled>
+                    {{ __('Blocks (Coming soon 🎉)') }}
+                </x-nav-link>
+
                 @role('admin')
                     <x-nav-link :href="route('admin.dashboard')" wire:navigate>
                         {{ __('Admin dashboard') }}
                     </x-nav-link>
                 @endrole
+
+                <h2 class="font-bold mt-5">Components</h2>
+                <livewire:user.partials.side-navigation />
             </div>
         </x-mary-drawer>
 
@@ -48,17 +63,30 @@ new class extends Component {
                         <x-mary-button icon="o-bars-3-bottom-left" wire:click="$toggle('nav_bar')"
                             class="text-2xl md:hidden btn-ghost" />
                         <a href="{{ route('welcome') }}" wire:navigate class="hidden md:block">
-                            <x-bi-wind class="w-5 h-5 font-black inline-flex mr-2" /> Harmony Wind UI
+                            <x-bi-wind class="w-5 h-5 font-black inline-flex mr-2" /> Harmony Wind UI (Beta)
                         </a>
                     </div>
 
                     <div class="hidden space-x-8 sm:flex sm:ml-10">
-                        <x-nav-link :href="route('user.components', 1)" :active="request()->routeIs('user.components', 1)" wire:navigate>
+                        <x-nav-link :href="auth()->user() ? route('user.components', 1) : route('login')" :active="request()->routeIs('user.components', 1)" wire:navigate>
                             {{ __('Components') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('login')" :active="request()->routeIs('login')" wire:navigate>
+
+                        {{-- <x-nav-link :href="route('login')" :active="request()->routeIs('login')" wire:navigate>
                             {{ __('Templates') }}
+                        </x-nav-link> --}}
+
+                        <x-nav-link :href="auth()->user() ? route('user.blog') : route('login')" :active="request()->routeIs('user.blog') || request()->routeIs('show.blog')" wire:navigate>
+                            {{ __('Blog') }}
                         </x-nav-link>
+
+                        <x-nav-link disabled>
+                            {{ __('Templates (Coming soon 🎉)') }}
+                        </x-nav-link>
+                        <x-nav-link disabled>
+                            {{ __('Blocks (Coming soon 🎉)') }}
+                        </x-nav-link>
+
                         @role('admin')
                             <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard') || request()->routeIs('admin.components')" wire:navigate>
                                 {{ __('Admin dashboard') }}
@@ -72,7 +100,7 @@ new class extends Component {
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
                                 <button class="inline-flex items-center px-3 py-2">
-                                    <div x-text="'{{ auth()->user()->name }}'"></div>
+                                    <div x-text="'{{ auth()->user()->name }}'" class="text-sm"></div>
                                     <div class="ml-1">
                                         <svg class="fill-current h-4 w-4" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd"
