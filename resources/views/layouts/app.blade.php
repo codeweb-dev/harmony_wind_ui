@@ -13,7 +13,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
-    <script src="dist/clipboard.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/ulet5pyj2cwneiwhow9zhzrnkk7xf1i113t4edqi9u11k90d/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
 
