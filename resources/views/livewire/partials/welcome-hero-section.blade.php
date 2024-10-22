@@ -47,9 +47,9 @@ new #[Layout('layouts.app')] class extends Component {
         </p>
 
         <div class="mt-10 flex items-center justify-center gap-x-6">
-            <a href="{{ route('login') }}" wire:navigate>
-                <x-mary-button label="Get Started" icon-right="o-chevron-right" class="bg-primary-white text-black" />
-            </a>
+            <x-mary-button label="Get Started" link="/login" icon-right="o-chevron-right"
+                class="bg-primary-white text-black" />
+
             <a href="https://www.facebook.com/allen.labrague.75" target="_blank">
                 <x-mary-button label="Facebook" class="btn-ghost" />
             </a>
