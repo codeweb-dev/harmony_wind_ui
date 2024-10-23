@@ -39,7 +39,7 @@ new #[Layout('layouts.app')] class extends Component {
             <span class="bg-gradient-to-b from-emerald-500 to-emerald-900 bg-clip-text text-transparent">
                 Harmony
             </span>
-            Wind UI
+            Wind UI (Beta)
         </h1>
 
         <p class="mt-6 text-muted-color w-9/12 mx-auto">
